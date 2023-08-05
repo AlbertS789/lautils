@@ -29,3 +29,17 @@ def compare_numbers(num1_hex, operator_hex, num2_hex):
         raise ValueError("Invalid input. Please provide valid numbers.")
 
     return eval(f"{num1} {operator} {num2}")
+    
+def calculate_coincidences_percentage(list1, list2):
+    if len(list1) != len(list2):
+        raise ValueError("Both lists should have the same length.")
+
+    total_elements = len(list1)
+    coincidences = sum(1 for x, y in zip(list1, list2) if x == y)
+    percentage = (coincidences / total_elements) * 100
+
+    return percentage
+
+def compare_lists_by_percentage(list1, list2, min_percentage):
+    percentage_coincidences = calculate_coincidences_percentage(list1, list2)
+    return percentage_coincidences >= min_percentage
