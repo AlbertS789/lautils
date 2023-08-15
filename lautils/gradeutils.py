@@ -1,3 +1,5 @@
+import warnings
+
 def new_representation(num):
     try:
         num = float(num)
@@ -31,8 +33,18 @@ def compare_numbers(num1_hex, operator_hex, num2_hex):
     return eval(f"{num1} {operator} {num2}")
     
 def calculate_coincidences_percentage(list1, list2):
+
     if len(list1) != len(list2):
-        raise ValueError("Both lists should have the same length.")
+        warnings.warn("List are of different size.", UserWarning)
+        #    raise ValueError("Both lists should have the same length.")
+        
+    max_length = max(len(list1), len(list2))
+    dummy_word = None
+    
+    if len(list1) < max_length:
+        list1 = list1 + [dummy_word] * (max_length - len(list1))
+    if len(list2) < max_length:
+        list2 = list2 + [dummy_word] * (max_length - len(list2))
 
     total_elements = len(list1)
     coincidences = sum(1 for x, y in zip(list1, list2) if x == y)
